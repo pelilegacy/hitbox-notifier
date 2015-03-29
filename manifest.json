@@ -1,15 +1,15 @@
 ﻿{
-    "name": "PeliLegacy ilmoittaja",
-    "description": "Ilmoittaa kun PeliLegacyn lähetys menee Hitboxissa Online.",
-    "version": "0.5",
+    "name": "Hitbox Notifier (Peli Legacy)",
+    "description": "Laajennus ilmoittaa kun Peli Legacyn lähetys käynnistyy.",
+    "version": "1.0",
 	"background": {
     "page": "background.html"
   },
-	
+
     "permissions": [ "notifications" ],
     "browser_action": {
           "default_icon": "icon.png",
-          "default_title": "PeliLegacy ilmoittaja"
+          "default_title": "Hitbox Notifier (Peli Legacy)"
         },
 
     "manifest_version":2

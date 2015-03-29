@@ -1,74 +1,102 @@
-﻿var notify = function (title, options) {
-    // Check for notification compatibility.
-    if (!'Notification' in window) {
+$(document).ready(function() {﻿
+
+    var notify = function (title, options) {
+
+        var channel = 'pelilegacy';
+        var timeOut = 5000;
+
+        var urls = {
+            api: 'http://api.hitbox.tv/media/live/' + channel,
+            live: {
+                hitbox: 'http://www.hitbox.tv/' + channel,
+                alt: 'http://live.pelilegacy.fi'
+            }
+        };
+
+        var strings = {
+            title: "Lähetys on käynnissä!",
+            body: "Seuraa osoitteessa " + urls.live.alt
+        }
+
         // If the browser version is unsupported, remain silent.
-        return;
-    }
-    // Log current permission level
-    console.log(Notification.permission);
-    // If the user has not been asked to grant or deny notifications
-    // from this domain...
-    if (Notification.permission === 'default') {
-        Notification.requestPermission(function () {
-            // ...callback this function once a permission level has been set.
-            notify(title, options);
-        });
-    }
-        // If the user has granted permission for this domain to send notifications...
-    else if (Notification.permission === 'granted') {
+        if (!'Notification' in window) return;
 
-        var n = new Notification(
-                    title,
-                    options
-                );
-        // Remove the notification from Notification Center when clicked.
-        n.onclick = function () {
-            window.open("http://www.hitbox.tv/pelilegacy");
-        };
-        // Callback function when the notification is closed.
-        n.onclose = function () {
-            console.log('Notification closed');
-        };
-    }
-        // If the user does not want notifications to come from this domain...
-    else if (Notification.permission === 'denied') {
-        // ...remain silent.
-        return;
-    }
-};
+        // Log current permission level
+        console.log(Notification.permission);
 
-var notified = false;
+        /**
+         * If the user has not been asked to grant or deny notifications
+         * from this domain
+         */
 
-repeat();
-var myVar = setInterval(function () { repeat() }, 5000);
+        if (Notification.permission === 'default') {
 
-function repeat() {
+            Notification.requestPermission(function () {
 
-    jQuery(document).ready(function ($) {
+                /**
+                 * Callback this function
+                 * once a permission level has been set.
+                 */
+
+                notify(title, options);
+            });
+
+        } else if (Notification.permission === 'granted') {
+
+            /**
+             * If the user has granted permission for this domain to send
+             * notifications
+             */
+
+            var notification = new Notification(title, options);
+
+            // Remove the notification from Notification Center when clicked.
+            notification.onclick = function () {
+                window.open(urls.live.alt);
+            };
+
+            // Callback function when the notification is closed.
+            notification.onclose = function () {
+                console.log("Notification closed.");
+            };
+
+        } else if (Notification.permission === 'denied') {
+
+            /**
+             * If the user does not want notifications
+             * to come from this domain
+             */
+
+            return;
+        }
+    };
+
+    var notified = false;
+
+    var repeat = function () {
 
         /**
          * This script uses Hitbox.tv API
          * For full documentation, see: http://developers.hitbox.tv/
          */
 
-        var endpoint = 'http://api.hitbox.tv/media/live/';
-        var channel = 'pelilegacy';
-        var url = endpoint + channel;
-        var liveMsg = "Lähetys on päällä. Tule katsomaan!";
-
-        $.getJSON(url, function (response) {
+        $.getJSON(urls.api, function (response) {
 
             if (response.livestream[0].media_is_live == "1") {
 
-                //var viewers = response.livestream[0].media_views;
-                if (notified == false) {
+                if (!notified) {
+
                     notified = true;
-                    notify('Lähetys on käynnissä!', { icon: "icon.png", body: 'tule seuraamaan osoitteeseen http://www.hitbox.tv/pelilegacy' });
+                    notify(strings.title, {
+                        icon: "icon.png", body: strings.body
+                    });
                 }
             }
             else {
                 notified = false;
             }
         });
-    });
-}
+    }
+
+    var updateInterval = setInterval(repeat, timeOut);
+});

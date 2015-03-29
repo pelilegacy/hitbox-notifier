@@ -1,22 +1,22 @@
-$(document).ready(function() {﻿
+$(document).ready(function() {
+
+    var channel = 'pelilegacy';
+    var timeOut = 5000;
+
+    var urls = {
+        api: 'http://api.hitbox.tv/media/live/' + channel,
+        live: {
+            hitbox: 'http://www.hitbox.tv/' + channel,
+            alt: 'http://live.pelilegacy.fi'
+        }
+    };
+
+    var strings = {
+        title: "Lähetys on käynnissä!",
+        body: "Seuraa osoitteessa " + urls.live.alt
+    };
 
     var notify = function (title, options) {
-
-        var channel = 'pelilegacy';
-        var timeOut = 5000;
-
-        var urls = {
-            api: 'http://api.hitbox.tv/media/live/' + channel,
-            live: {
-                hitbox: 'http://www.hitbox.tv/' + channel,
-                alt: 'http://live.pelilegacy.fi'
-            }
-        };
-
-        var strings = {
-            title: "Lähetys on käynnissä!",
-            body: "Seuraa osoitteessa " + urls.live.alt
-        }
 
         // If the browser version is unsupported, remain silent.
         if (!'Notification' in window) return;
@@ -96,7 +96,7 @@ $(document).ready(function() {﻿
                 notified = false;
             }
         });
-    }
+    };
 
     var updateInterval = setInterval(repeat, timeOut);
 });

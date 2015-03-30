@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var channel = 'pelilegacy';
-    var timeOut = 30000;
+    var timeOut = 60000; // Set this for a one minute to prevent notified going true / false many times since Hitbox API does not always know it has changed :)
 
     var urls = {
         api: 'http://api.hitbox.tv/media/live/' + channel,

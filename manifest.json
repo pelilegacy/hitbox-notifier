@@ -1,16 +1,24 @@
 ﻿{
-    "name": "Hitbox Notifier (Peli Legacy)",
-    "description": "Laajennus ilmoittaa kun Peli Legacyn lähetys käynnistyy.",
+	"manifest_version": 2,
+	"name": "Hitbox Notifier (Peli Legacy)",
     "version": "1.0",
+
+    "description": "Laajennus ilmoittaa kun Peli Legacyn lähetys käynnistyy.",
+
+	"icons": {
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
+	},
+
+	"browser_action": {
+		"default_icon": "icon16.png",
+		"default_title": "Hitbox Notifier (Peli Legacy)"
+	},
+
 	"background": {
-    "page": "background.html"
-  },
+		"page": "background.html"
+	},
 
-    "permissions": [ "notifications" ],
-    "browser_action": {
-          "default_icon": "icon.png",
-          "default_title": "Hitbox Notifier (Peli Legacy)"
-        },
-
-    "manifest_version":2
+    "permissions": [ "notifications" ]
 }

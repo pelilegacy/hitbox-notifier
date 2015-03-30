@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var channel = 'pelilegacy';
-    var timeOut = 5000;
+    var timeOut = 30000;
 
     var urls = {
         api: 'http://api.hitbox.tv/media/live/' + channel,
@@ -88,7 +88,7 @@ $(document).ready(function() {
 
                     notified = true;
                     notify(strings.title, {
-                        icon: "icon.png", body: strings.body
+                        icon: "icon128.png", body: strings.body
                     });
                 }
             }
